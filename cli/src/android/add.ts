@@ -7,11 +7,11 @@ import { join } from 'path';
 export async function addAndroid(config: Config) {
 
   await runTask(`Installing android dependencies`, async (info: TaskInfoProvider) => {
-    if (resolveNode(config, '@capacitor/android')) {
+    if (resolveNode(config, '@onslip/capacitor-android')) {
       info('Skipping: already installed');
       return;
     }
-    return installDeps(config.app.rootDir, ['@capacitor/android'], config);
+    return installDeps(config.app.rootDir, ['@onslip/capacitor-android'], config);
   });
   await runTask(`Adding native android project in: ${config.android.platformDir}`, async () => {
     return copyTemplate(config.android.assets.templateDir, config.android.platformDir);

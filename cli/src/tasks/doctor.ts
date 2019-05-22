@@ -21,15 +21,15 @@ export async function doctorCommand(config: Config, selectedPlatform: string) {
 }
 
 export async function doctorCore(config: Config) {
-  let cliVersion = await runCommand(`npm info @capacitor/cli version`);
+  let cliVersion = await runCommand(`npm info @onslip/capacitor-cli version`);
   let coreVersion = await runCommand(`npm info @capacitor/core version`);
-  let androidVersion = await runCommand(`npm info @capacitor/android version`);
+  let androidVersion = await runCommand(`npm info @onslip/capacitor-android version`);
   let iosVersion = await runCommand(`npm info @capacitor/ios version`);
 
   log(`${chalk.bold.blue('Latest Dependencies:')}\n`);
-  log(`  ${chalk.bold('@capacitor/cli:')}`, cliVersion);
+  log(`  ${chalk.bold('@onslip/capacitor-cli:')}`, cliVersion);
   log(`  ${chalk.bold('@capacitor/core:')}`, coreVersion);
-  log(`  ${chalk.bold('@capacitor/android:')}`, androidVersion);
+  log(`  ${chalk.bold('@onslip/capacitor-android:')}`, androidVersion);
   log(`  ${chalk.bold('@capacitor/ios:')}`, iosVersion);
 
   log(`${chalk.bold.blue('Installed Dependencies:')}\n`);
@@ -40,7 +40,7 @@ export async function doctorCore(config: Config) {
 }
 
 async function printInstalledPackages( config: Config) {
-  const packageNames = ["@capacitor/cli", "@capacitor/core", "@capacitor/android", "@capacitor/ios"];
+  const packageNames = ["@onslip/capacitor-cli", "@capacitor/core", "@onslip/capacitor-android", "@capacitor/ios"];
   await Promise.all(packageNames.map(async packageName => {
     let version;
     const packagePath = resolveNode(config, packageName, 'package.json');

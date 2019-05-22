@@ -70,7 +70,7 @@ export async function createCommand(config: Config, dir: string, name: string, i
     await create(config, appDir, appName, appId);
     // npm install
     await runTask(chalk`Installing dependencies`, () => {
-      return installDeps(appDir, ['@capacitor/cli', '@capacitor/core'], config);
+      return installDeps(appDir, ['@onslip/capacitor-cli', '@capacitor/core'], config);
     });
     // Copy web and capacitor to web assets
     await copy(config, config.web.name);
@@ -79,8 +79,8 @@ export async function createCommand(config: Config, dir: string, name: string, i
   } catch (e) {
     // String errors are our check errors (most likely)
     if (typeof e === 'string') {
-      log('Usage: npx @capacitor/cli create appDir appName appId npmClient?');
-      log('Example: npx @capacitor/cli create my-app "My App" "com.example.myapp"');
+      log('Usage: npx @onslip/capacitor-cli create appDir appName appId npmClient?');
+      log('Example: npx @onslip/capacitor-cli create my-app "My App" "com.example.myapp"');
     }
 
     logFatal(e);

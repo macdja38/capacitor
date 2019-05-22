@@ -24,7 +24,7 @@ To add Capacitor to your web app, run the following commands:
 
 ```bash
 cd my-app
-npm install --save @capacitor/core @capacitor/cli
+npm install --save @capacitor/core @onslip/capacitor-cli
 ```
 
 Then, initialize Capacitor with your app information.
@@ -54,7 +54,7 @@ Capacitor comes with a stock project structure if you'd rather start fresh and p
 To create it, run:
 
 ```bash
-npx @capacitor/cli create
+npx @onslip/capacitor-cli create
 ```
 
 This command will prompt you to enter the name of your app and the app id (the package name for Android and the bundle identifier for iOS).

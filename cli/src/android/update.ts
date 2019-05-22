@@ -45,10 +45,10 @@ function getGradlePackageName(id: string): string {
 }
 
 export async function installGradlePlugins(config: Config, capacitorPlugins: Plugin[], cordovaPlugins: Plugin[]) {
-  const capacitorAndroidPath = resolveNode(config, '@capacitor/android', 'capacitor');
+  const capacitorAndroidPath = resolveNode(config, '@onslip/capacitor-android', 'capacitor');
   if (!capacitorAndroidPath) {
-    logFatal(`Unable to find node_modules/@capacitor/android/capacitor. Are you sure`,
-      `@capacitor/android is installed? This file is currently required for Capacitor to function.`);
+    logFatal(`Unable to find node_modules/@onslip/capacitor-android/capacitor. Are you sure`,
+      `@onslip/capacitor-android is installed? This file is currently required for Capacitor to function.`);
     return;
   }
 

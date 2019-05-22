@@ -1,5 +1,5 @@
 {
-  "name": "@capacitor/cli",
+  "name": "@onslip/capacitor-cli",
   "version": "1.0.0-beta.25",
   "description": "Capacitor: Cross-platform apps with JavaScript and the web",
   "homepage": "https://capacitor.ionicframework.com/",

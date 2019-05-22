@@ -236,7 +236,7 @@ function generatePackageJSON(answers: any) {
     devDependencies: {
       'typescript': '^3.2.4',
       '@capacitor/ios': 'latest',
-      '@capacitor/android': 'latest'
+      '@onslip/capacitor-android': 'latest'
     },
     files: [
       'dist/',

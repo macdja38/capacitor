@@ -375,17 +375,18 @@ export async function printNextSteps(config: Config, appDir: string) {
 }
 
 export async function checkPlatformVersions(config: Config, platform: string) {
-  const cliPackagePath = resolveNode(config, '@capacitor/cli', 'package.json');
+  const cliPackagePath = resolveNode(config, '@onslip/capacitor-cli', 'package.json');
   if (!cliPackagePath) {
-    logFatal('Unable to find node_modules/@capacitor/cli/package.json. Are you sure',
-      '@capacitor/cli is installed? This file is currently required for Capacitor to function.');
+    logFatal('Unable to find node_modules/@onslip/capacitor-cli/package.json. Are you sure',
+      '@onslip/capacitor-cli is installed? This file is currently required for Capacitor to function.');
     return;
   }
 
-  const platformPackagePath = resolveNode(config, `@capacitor/${platform}`, 'package.json');
+  const platformPackage = platform === 'android' ? '@onslip/capacitor-android' : `@capacitor/${platform}`;
+  const platformPackagePath = resolveNode(config, platformPackage, 'package.json');
   if (!platformPackagePath) {
-    logFatal(`Unable to find node_modules/@capacitor/${platform}/package.json. Are you sure`,
-      `@capacitor/${platform} is installed? This file is currently required for Capacitor to function.`);
+    logFatal(`Unable to find node_modules/${platformPackage}/package.json. Are you sure`,
+      `${platformPackage} is installed? This file is currently required for Capacitor to function.`);
     return;
   }
 
@@ -394,8 +395,8 @@ export async function checkPlatformVersions(config: Config, platform: string) {
 
   if (semver.gt(cliVersion, platformVersion)) {
     log('\n');
-    logInfo(`Your @capacitor/cli version is greater than @capacitor/${platform} version`);
-    log(`Consider updating to matching version ${chalk`{bold npm install @capacitor/${platform}@${cliVersion}}`}`);
+    logInfo(`Your @onslip/capacitor-cli version is greater than ${platformPackage} version`);
+    log(`Consider updating to matching version ${chalk`{bold npm install ${platformPackage}@${cliVersion}}`}`);
   }
 }
 

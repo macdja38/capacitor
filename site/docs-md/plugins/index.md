@@ -15,13 +15,13 @@ for a plugin is possible, and is just like providing a JavaScript npm package.
 Capacitor comes with a Plugin generator to start new plugins quickly. To use it, run
 
 ```bash
-npx @capacitor/cli plugin:generate
+npx @onslip/capacitor-cli plugin:generate
 ```
 
 This starts a wizard prompting you for information about your new plugin. For example:
 
 ```bash
-npx @capacitor/cli plugin:generate
+npx @onslip/capacitor-cli plugin:generate
 ✏️  Creating new Capacitor plugin
 ? Plugin NPM name (snake-case): my-plugin
 ? Plugin id (domain-style syntax. ex: com.example.plugin) com.ionicframework.myplugin

@@ -3,7 +3,7 @@
 The Capacitor command-line interface should be installed locally and executed through `npm` scripts.
 
 ```
-npm install @capacitor/cli --save-dev
+npm install @onslip/capacitor-cli --save-dev
 ```
 
 ## Using Capacitor CLI

@@ -81,7 +81,7 @@ export async function makeAppDir(monoRepoLike: boolean = false) {
   // Make a fake package.json
   await writeFileAsync(join(appDir, 'package.json'), APP_PACKAGE_JSON);
 
-  // We use 'npm install' to install @capacitor/core and @capacitor/cli
+  // We use 'npm install' to install @capacitor/core and @onslip/capacitor-cli
   // Otherwise later use of 'npm install --save @capacitor/android|ios' will wipe 'node_modules/@capacitor/'
   const corePath = resolve(cwd, '../core');
   const cliPath = resolve(cwd, '../cli');
