@@ -1,3 +1,9 @@
+# About this fork
+
+This is a fork of the Capacitor CLI that adds support for the [Crosswalk](https://01.org/crosswalk-project)
+WebView for the [Android](https://www.npmjs.com/package/@onslip/capacitor-android) platform,
+allowing it to run on Android 4.1+ devices.
+
 # Capacitor CLI
 
 The Capacitor command-line interface should be installed locally and executed through `npm` scripts.
