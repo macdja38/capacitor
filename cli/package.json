@@ -1,6 +1,6 @@
 {
   "name": "@onslip/capacitor-cli",
-  "version": "1.0.0-beta.25",
+  "version": "1.0.0",
   "description": "Capacitor: Cross-platform apps with JavaScript and the web",
   "homepage": "https://capacitor.ionicframework.com/",
   "author": "Ionic Team <hi@ionicframework.com> (https://ionicframework.com) ",
@@ -37,10 +37,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/capacitor.git"
+    "url": "https://github.com/Onslip/capacitor-android-v16.git"
   },
   "bugs": {
-    "url": "https://github.com/ionic-team/capacitor/issues"
+    "url": "https://github.com/Onslip/capacitor-android-v16/issues"
   },
   "license": "MIT",
   "dependencies": {
