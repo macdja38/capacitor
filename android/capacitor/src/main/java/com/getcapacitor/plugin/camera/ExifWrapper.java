@@ -1,8 +1,8 @@
 package com.getcapacitor.plugin.camera;
 
-import androidx.exifinterface.media.ExifInterface;
+import android.support.media.ExifInterface;
 
-import static androidx.exifinterface.media.ExifInterface.*;
+import static android.support.media.ExifInterface.*;
 
 import com.getcapacitor.JSObject;
 
