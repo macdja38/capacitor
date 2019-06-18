@@ -15,7 +15,7 @@ import com.getcapacitor.LogUtils;
 import java.io.IOException;
 import java.io.InputStream;
 
-import androidx.exifinterface.media.ExifInterface;
+import android.support.media.ExifInterface;
 
 public class ImageUtils {
 
