@@ -1,14 +1,10 @@
 [![Build Status][circle-badge]][circle-badge-url]
 
-
-*Capacitor is currently in beta and is not production ready. We'd love your help testing!*
-
 # About this fork
 
 This is a fork of Capacitor that adds support for the [Crosswalk](https://01.org/crosswalk-project)
 WebView for the [Android](https://www.npmjs.com/package/@onslip/capacitor-android) platform,
 allowing it to run on Android 4.1+ devices.
-
 
 # ⚡️ Cross-platform apps with JavaScript and the Web ⚡️
 

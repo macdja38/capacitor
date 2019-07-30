@@ -1,6 +1,6 @@
 {
   "name": "@onslip/capacitor-android",
-  "version": "1.0.1-onslip.1",
+  "version": "1.1.1",
   "description": "Capacitor: cross-platform mobile apps with the web",
   "homepage": "https://capacitor.ionicframework.com/",
   "author": "Ionic Team <hi@ionic.io> (https://ionicframework.com) ",
@@ -15,5 +15,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "17f2124b487cbe216b3d6543a5d3fb86760110cd"
+  "gitHead": "593aa0af9e2b9dfb3c4e69e739d36d7358959b31"
 }

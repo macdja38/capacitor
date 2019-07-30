@@ -1,6 +1,6 @@
 import { checkCocoaPods, checkIOSProject, getIOSPlugins } from './common';
 import { CheckFunction, checkPlatformVersions, logFatal, resolveNode, runCommand, runTask } from '../common';
-import { copySync, readFileAsync, readFileSync, removeSync, writeFileAsync, writeFileSync } from '../util/fs';
+import { convertToUnixPath, copySync, readFileAsync, readFileSync, removeSync, writeFileAsync, writeFileSync } from '../util/fs';
 import { Config } from '../config';
 import { join, relative, resolve } from 'path';
 import { realpathSync } from 'fs';
@@ -13,27 +13,6 @@ export const updateIOSChecks: CheckFunction[] = [checkCocoaPods, checkIOSProject
 const platform = 'ios';
 
 export async function updateIOS(config: Config) {
-  /*
-  var chalk = require('chalk');
-  log(`\n${chalk.bold('iOS Note:')} you should periodically run "pod repo update" to make sure your ` +
-          `local Pod repo is up to date and can find new Pod releases.\n`);
-  */
-
-
-  /*
-  var answers = await inquirer.prompt([{
-    type: 'input',
-    name: 'updateRepo',
-    message: `Run "pod repo update" to make sure you have the latest Pods available before updating (takes a few minutes)?`,
-    default: 'n'
-  }]);
-
-  if (answers.updateRepo === 'y') {
-    await runTask(`Running pod repo update to update CocoaPods`, () => {
-      return runCommand(`pod repo update`);
-    });
-  }
-  */
 
   let plugins = await getPluginsTask(config);
 
@@ -67,7 +46,7 @@ export async function updateIOS(config: Config) {
 }
 
 export async function installCocoaPodsPlugins(config: Config, plugins: Plugin[]) {
-  await runTask('Updating iOS native dependencies', () => {
+  await runTask('Updating iOS native dependencies with "pod install" (may take several minutes)', () => {
     return updatePodfile(config, plugins);
   });
 }
@@ -95,7 +74,7 @@ export function generatePodFile(config: Config, plugins: Plugin[]) {
   }
 
   const podfilePath = join(config.app.rootDir, 'ios', 'App');
-  const relativeCapacitoriOSPath = relative(podfilePath, capacitoriOSPath).replace(/\\/g, '/');
+  const relativeCapacitoriOSPath = convertToUnixPath(relative(podfilePath, capacitoriOSPath));
 
   const capacitorPlugins = plugins.filter(p => getPluginType(p, platform) === PluginType.Core);
   const pods = capacitorPlugins
@@ -190,6 +169,20 @@ async function generateCordovaPodspec(cordovaPlugins: Plugin[], config: Config, 
         }
       }
     });
+    const podspecs = getPlatformElement(plugin, platform, 'podspec');
+    podspecs.map((podspec: any) => {
+      podspec.pods.map((pods: any) => {
+        pods.pod.map((pod: any) => {
+          let depString = `s.dependency '${pod.$.name}'`;
+          if (pod.$.spec && pod.$.spec !== '') {
+            depString += `, '${pod.$.spec}'`;
+          }
+          if (!frameworkDeps.includes(depString)) {
+            frameworkDeps.push(depString);
+          }
+        })
+      });
+    });
     const sourceFiles = getPlatformElement(plugin, platform, 'source-file');
     sourceFiles.map((sourceFile: any) => {
       if (sourceFile.$.framework && sourceFile.$.framework === 'true') {
@@ -257,8 +250,9 @@ function copyPluginsNativeFiles(config: Config, cordovaPlugins: Plugin[]) {
     const codeFiles = sourceFiles.concat(headerFiles);
     const frameworks = getPlatformElement(p, platform, 'framework');
     const podFrameworks = frameworks.filter((framework: any) => framework.$.type && framework.$.type === 'podspec');
+    const podspecs = getPlatformElement(p, platform, 'podspec');
     let sourcesFolderName = 'sources';
-    if (podFrameworks.length > 0) {
+    if (podFrameworks.length > 0 || podspecs.length > 0) {
       sourcesFolderName += 'static';
     }
     const sourcesFolder = join(pluginsPath, sourcesFolderName, p.name);
@@ -272,10 +266,15 @@ function copyPluginsNativeFiles(config: Config, cordovaPlugins: Plugin[]) {
       const filePath = getFilePath(config, p, codeFile.$.src);
       const fileDest = join(pluginsPath, destFolder, p.name, fileName);
       copySync(filePath, fileDest);
+      let fileContent = readFileSync(fileDest, 'utf8');
       if (fileExt === "swift") {
-        let fileContent = readFileSync(fileDest, 'utf8');
         fileContent = 'import Cordova\n' + fileContent;
         writeFileSync(fileDest, fileContent, 'utf8');
+      } else {
+        if (fileContent.includes('@import Firebase;')){
+          fileContent = fileContent.replace('@import Firebase;', '#import <Firebase/Firebase.h>');
+          writeFileSync(fileDest, fileContent, 'utf8');
+        }
       }
     });
     const resourceFiles = getPlatformElement(p, platform, 'resource-file');
@@ -300,7 +299,8 @@ function removePluginsNativeFiles(config: Config) {
 function filterNoPods(plugin: Plugin) {
   const frameworks = getPlatformElement(plugin, platform, 'framework');
   const podFrameworks = frameworks.filter((framework: any) => framework.$.type && framework.$.type === 'podspec');
-  return podFrameworks.length === 0;
+  const podspecs = getPlatformElement(plugin, platform, 'podspec');
+  return podFrameworks.length === 0 && podspecs.length === 0;
 }
 
 function filterResources(plugin: Plugin) {

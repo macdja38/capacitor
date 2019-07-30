@@ -10,8 +10,6 @@ contributors:
 
 ## General
 
-General Capacitor guides and tutorials from the community.
-
 [How to Build an Ionic Chat App with React and Stream &#8250;](https://levelup.gitconnected.com/how-to-build-an-ionic-chat-app-with-react-and-stream-739b67611280)
 
 [Capacitor: Five Apps in Five Minutes &#8250;](https://angularfirebase.com/lessons/capacitor-five-apps-in-five-minutes/)
@@ -19,6 +17,24 @@ General Capacitor guides and tutorials from the community.
 [Create an Ionic 4 PWA with Capacitor &#8250;](https://blog.jscrambler.com/create-an-ionic-4-pwa-with-capacitor/)
 
 [Capacitor Workflow for iOS and Android Apps &#8250;](https://www.youtube.com/watch?v=oXbRcpsytGQ)
+
+[Using the Capacitor in Vue.js app](https://akhromieiev.com/tutorials/using-capacitor-in-vue-js-app/)
+
+## APIs
+
+[Camera: Building an Ionic Framework Camera App](/docs/guides/ionic-framework-app)
+
+[Network: Ionic 4 and Network Detection with Capacitor &#8250;](https://developer.school/posts/ionic-4-network-detection-with-capacitor/)
+
+[Push Notifications: Using Push Notifications with Firebase in an Ionic Angular App](/docs/guides/push-notifications-firebase)
+
+[Splash Screen: Creating a Dynamic/Adaptable Splash Screen for Capacitor (Android) &#8250;](https://www.joshmorony.com/creating-a-dynamic-universal-splash-screen-for-capacitor-android/)
+
+[Using the Capacitor Share API in IOS app](https://akhromieiev.com/tutorials/using-the-capacitor-share-api-in-ios-app/)
+
+[Using the Capacitor Browser API to open urls](https://akhromieiev.com/tutorials/using-the-capacitor-browser-api-to-open-links/)
+
+[Network Detection with Capacitor in Ionic project](https://akhromieiev.com/tutorials/network-detection-capacitor/)
 
 ## Integrations
 

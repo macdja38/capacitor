@@ -29,6 +29,7 @@ Are we missing your awesome plugin? [Add it to this page](https://github.com/ion
 | Fingerprint Auth | `capacitor-fingerprint-auth` | <https://github.com/triniwiz/capacitor-fingerprint-auth> | |
 | Firebase Auth | `capacitor-firebase-auth` | <https://github.com/baumblatt/capacitor-firebase-auth> | |
 | Twitter Kit | `capacitor-twitter` | <https://github.com/stewwan/capacitor-twitter> | |
+| Google Sign-in | `@codetrix-studio/capacitor-google-auth` | <https://github.com/CodetrixStudio/CapacitorGoogleAuth> | Works with Firebase. Lightweight |
 
 ## Storage
 
@@ -101,11 +102,18 @@ Are we missing your awesome plugin? [Add it to this page](https://github.com/ion
 | Downloader | `capacitor-downloader` | <https://github.com/triniwiz/capacitor-downloader> | |
 | Zip | `capacitor-zip` | <https://github.com/triniwiz/capacitor-zip> | |
 
+## Bluetooth
+
+| Name                    | NPM package | GitHub | Notes |
+| ----------------------- | ----------- | ------ | ------ |
+| Bluetooth Low Energy Client | `cap-bluetooth-low-energy-client` | <https://github.com/robmarti/cap-bluetooth-low-energy-client> | Web, Android|
+
+
 ## Date/Calendar
 
 | Name                    | NPM package | GitHub | Notes |
 | ----------------------- | ----------- | ------ | ------ |
-| DatePicker | `capacitor-datepicker | <https://github.com/triniwiz/capacitor-datepicker> | |
+| DatePicker | `capacitor-datepicker` | <https://github.com/triniwiz/capacitor-datepicker> | |
 
 ## Images
 

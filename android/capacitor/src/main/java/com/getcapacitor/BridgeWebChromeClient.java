@@ -12,8 +12,10 @@ import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
 import android.webkit.PermissionRequest;
 import android.webkit.ValueCallback;
+import android.view.View;
 
 import com.getcapacitor.plugin.camera.CameraUtils;
+import com.getcapacitor.WebView.CustomViewCallback;
 import com.getcapacitor.WebView.JsPromptResult;
 import com.getcapacitor.WebView.JsResult;
 import com.getcapacitor.WebView.WebChromeClient;
@@ -39,6 +41,17 @@ public class BridgeWebChromeClient extends WebChromeClient {
 
   public BridgeWebChromeClient(Bridge bridge) {
     this.bridge = bridge;
+  }
+
+  @Override
+  public void onShowCustomView(View view, CustomViewCallback callback) {
+    callback.onCustomViewHidden();
+    super.onShowCustomView(view, callback);
+  }
+
+  @Override
+  public void onHideCustomView() {
+    super.onHideCustomView();
   }
 
   @android.annotation.TargetApi(android.os.Build.VERSION_CODES.LOLLIPOP) @Override

@@ -35,16 +35,6 @@ public class WebView {
         return userAgent.equals(chromeVer) ? "0.0.0.0" : chromeVer;
     }
 
-    public static void setWebContentsDebuggingEnabled(boolean enabled) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            android.webkit.WebView.setWebContentsDebuggingEnabled(enabled);
-        }
-    }
-
-    public static void setXWalkWebContentsDebuggingEnabled(boolean enabled) {
-        XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, enabled);
-    }
-
     public WebView(android.webkit.WebView webView) {
         Log.i(LogUtils.getCoreTag(), "Using System WebView " + getWebViewVersion(webView));
 
@@ -77,8 +67,22 @@ public class WebView {
         return webView != null ? webView : xwalkView;
     }
 
+    public void setWebContentsDebuggingEnabled(boolean enabled) {
+        if (webView != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                android.webkit.WebView.setWebContentsDebuggingEnabled(enabled);
+            }
+        } else {
+            XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, enabled);
+        }
+    }
+
     public void post(Runnable runnable) {
         getView().post(runnable);
+    }
+
+    public String getUrl() {
+        return webView != null ? webView.getUrl() : xwalkView.getUrl();
     }
 
     public Context getContext() {
@@ -88,6 +92,14 @@ public class WebView {
     public void setWebChromeClient(final WebChromeClient client) {
         if (webView != null) {
             webView.setWebChromeClient(new android.webkit.WebChromeClient() {
+                @Override public void onShowCustomView(View view, android.webkit.WebChromeClient.CustomViewCallback callback) {
+                    client.onShowCustomView(view, new com.getcapacitor.WebView.CustomViewCallback(callback));
+                }
+
+                @Override public void onHideCustomView() {
+                    client.onHideCustomView();
+                }
+
                 @Override public boolean onJsAlert(android.webkit.WebView view, String url, String message, android.webkit.JsResult result) {
                     return client.onJsAlert(WebView.this, url, message, new JsResult(result));
                 }
@@ -119,6 +131,14 @@ public class WebView {
         }
         else {
             xwalkView.setUIClient(new XWalkUIClient(xwalkView) {
+                @Override public void onShowCustomView(View view, org.xwalk.core.CustomViewCallback callback) {
+                    client.onShowCustomView(view, new com.getcapacitor.WebView.CustomViewCallback(callback));
+                }
+
+                @Override public void onHideCustomView() {
+                    client.onHideCustomView();
+                }
+
                 @Override public boolean onJsAlert(XWalkView view, String url, String message, XWalkJavascriptResult result) {
                     return client.onJsAlert(WebView.this, url, message, new JsResult(result));
                 }
@@ -623,6 +643,12 @@ public class WebView {
     }
 
     public static class WebChromeClient {
+        public void onShowCustomView(View view, CustomViewCallback callback) {
+        }
+
+        public void onHideCustomView() {
+        }
+
         public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
         }
 
@@ -733,6 +759,27 @@ public class WebView {
                                                         .addCategory(Intent.CATEGORY_OPENABLE)
                                                         .setType("*/*"), getTitle());
                 }
+            }
+        }
+    }
+
+    public static class CustomViewCallback {
+        protected android.webkit.WebChromeClient.CustomViewCallback customViewCallback;
+        protected org.xwalk.core.CustomViewCallback xwalkCallback;
+
+        private CustomViewCallback(android.webkit.WebChromeClient.CustomViewCallback callback) {
+            customViewCallback = callback;
+        }
+
+        private CustomViewCallback(org.xwalk.core.CustomViewCallback callback) {
+            xwalkCallback = callback;
+        }
+
+        public void onCustomViewHidden() {
+            if (customViewCallback != null) {
+                customViewCallback.onCustomViewHidden();
+            } else {
+                xwalkCallback.onCustomViewHidden();
             }
         }
     }
