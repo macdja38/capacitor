@@ -37,7 +37,7 @@ public class BridgeActivity extends AppCompatActivity {
   private XWalkUpdater xwalkUpdater;
   private XWalkUpdateAdapter xwalkUpdateAdapter;
   private String xwalkApkUrl;
-  private ArrayList<Runnable> xwalkReadyQueue = new ArrayList<Runnable>();
+  private ArrayList<Runnable> xwalkReadyQueue = null;
 
   private int activityDepth = 0;
 
