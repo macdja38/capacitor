@@ -37,7 +37,7 @@ public class BridgeActivity extends AppCompatActivity {
   private XWalkUpdater xwalkUpdater;
   private XWalkUpdateAdapter xwalkUpdateAdapter;
   private String xwalkApkUrl;
-  private ArrayList<Runnable> xwalkReadyQueue = null;
+  private ArrayList<Runnable> xwalkReadyQueue = new ArrayList<Runnable>();
 
   private int activityDepth = 0;
 
@@ -394,19 +394,12 @@ public class BridgeActivity extends AppCompatActivity {
   }
 
   private boolean initXWalk() {
-    if (xwalkInitializer != null && xwalkInitializer.initAsync()) {
-      synchronized (BridgeActivity.class) {
-        xwalkReadyQueue = xwalkReadyQueue != null ? xwalkReadyQueue : new ArrayList<Runnable>();
-        return true;
-      }
-    }
-
-    return false;
+    return xwalkInitializer != null && xwalkInitializer.initAsync();
   }
 
   protected void whenXWalkReady(Runnable runnable) {
     synchronized (BridgeActivity.class) {
-      if (xwalkReadyQueue == null) {
+      if (!useXWalk || xwalkReadyQueue == null) {
         runnable.run();
       } else {
         xwalkReadyQueue.add(runnable);
