@@ -6,6 +6,7 @@ FOUNDATION_EXPORT double CapacitorVersionNumber;
 //! Project version string for bridge.
 FOUNDATION_EXPORT const unsigned char CapacitorVersionString[];
 
+#import "WKWebViewConfiguration+CAPWebViewConfiguration.h"
 #import "CAPPlugin.h"
 #import "CAPPluginCall.h"
 #import "CAPBridgedPlugin.h"
